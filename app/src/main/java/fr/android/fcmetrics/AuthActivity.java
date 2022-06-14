@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class AuthActivity extends AppCompatActivity {
-    private Button btn_inscription;
+    private Button btn_inscription, btn_connexion;
 
 
     @Override
@@ -20,6 +20,7 @@ public class AuthActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         btn_inscription = findViewById(R.id.inscription);
+        btn_connexion = findViewById(R.id.connexion);
 
         btn_inscription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,5 +29,15 @@ public class AuthActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_connexion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AuthActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
