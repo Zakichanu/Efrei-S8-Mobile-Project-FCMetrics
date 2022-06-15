@@ -16,9 +16,6 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        // Hiding toolbar
-        getSupportActionBar().hide();
-
         btn_inscription = findViewById(R.id.inscription);
         btn_connexion = findViewById(R.id.connexion);
 

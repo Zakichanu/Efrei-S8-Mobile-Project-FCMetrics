@@ -2,6 +2,7 @@ package fr.android.fcmetrics;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import static fr.android.fcmetrics.modules.CalendarUtils.daysInWeekArray;
 import static fr.android.fcmetrics.modules.CalendarUtils.monthYearFromDate;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import fr.android.fcmetrics.modules.CalendarAdapter;
 import fr.android.fcmetrics.modules.CalendarUtils;
 import fr.android.fcmetrics.modules.Match;
@@ -29,6 +31,10 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
 
+    private CircleImageView pdp;
+    private TextView pseudonyme;
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,6 +44,18 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         setContentView(R.layout.activity_home);
         initWidgets();
         setWeekView();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
+        // Récupération des champs de la toolbar
+        pdp = findViewById(R.id.pdp);
+        pseudonyme = findViewById(R.id.pseudonyme);
+
+        pseudonyme.setText("Welcome Back ZAK!");
+        pdp.setImageResource(R.drawable.ic_imageonline_co_transparentimage);
+
     }
 
     private void initWidgets()
