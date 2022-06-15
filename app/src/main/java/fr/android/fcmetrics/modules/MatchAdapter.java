@@ -34,7 +34,7 @@ public class MatchAdapter extends ArrayAdapter<Match>
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.celulle_match, parent, false);
 
-        TextView eventCellTV = convertView.findViewById(R.id.eventCellTV);
+        TextView eventCellTV = convertView.findViewById(R.id.matchCellTV);
 
         String eventTitle = event.getName() +" "+ CalendarUtils.formattedTime(event.getTime());
         eventCellTV.setText(eventTitle);
