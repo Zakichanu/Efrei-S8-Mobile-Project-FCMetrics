@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static fr.android.fcmetrics.modules.CalendarUtils.daysInWeekArray;
 import static fr.android.fcmetrics.modules.CalendarUtils.monthYearFromDate;
@@ -112,6 +113,7 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         setWeekView();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onResume()
     {
@@ -119,9 +121,10 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         setEventAdpater();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setEventAdpater()
     {
-        ArrayList<Match> dailyEvents = Match.eventsForDate(CalendarUtils.selectedDate);
+        ArrayList<Match> dailyEvents = Match.eventsForDate(java.sql.Date.valueOf(CalendarUtils.selectedDate.toString()));
         MatchAdapter eventAdapter = new MatchAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
     }

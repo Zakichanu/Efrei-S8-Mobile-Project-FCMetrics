@@ -3,12 +3,13 @@ package fr.android.fcmetrics.modules;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Match
 {
     public static ArrayList<Match> eventsList = new ArrayList<>();
 
-    public static ArrayList<Match> eventsForDate(LocalDate date)
+    public static ArrayList<Match> eventsForDate(Date date)
     {
         ArrayList<Match> events = new ArrayList<>();
 
@@ -23,14 +24,16 @@ public class Match
 
 
     private String name;
-    private LocalDate date;
-    private LocalTime time;
+    private Date date;
+    private Double latitude, longitude;
 
-    public Match(String name, LocalDate date, LocalTime time)
+    public Match(String name, Date date, double latitude, double longitude)
     {
         this.name = name;
         this.date = date;
-        this.time = time;
+        this.latitude = latitude;
+        this.longitude = longitude;
+
     }
 
     public String getName()
@@ -43,23 +46,27 @@ public class Match
         this.name = name;
     }
 
-    public LocalDate getDate()
-    {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date)
-    {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public LocalTime getTime()
-    {
-        return time;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setTime(LocalTime time)
-    {
-        this.time = time;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

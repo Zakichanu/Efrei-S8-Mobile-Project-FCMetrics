@@ -10,6 +10,9 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import fr.android.fcmetrics.modules.CalendarUtils;
@@ -18,9 +21,9 @@ import fr.android.fcmetrics.modules.Match;
 public class MatchActivity extends AppCompatActivity
 {
     private EditText eventNameET;
-    private TextView eventDateTV, eventTimeTV;
-
-    private LocalTime time;
+    private EditText eventDateET;
+    private EditText eventLatitudeET;
+    private EditText eventLongitudeET;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -37,23 +40,26 @@ public class MatchActivity extends AppCompatActivity
         }
 
         initWidgets();
-        time = LocalTime.now();
-        eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
     }
 
     private void initWidgets()
     {
-        eventNameET = findViewById(R.id.eventNameET);
-        eventDateTV = findViewById(R.id.eventDateTV);
-        eventTimeTV = findViewById(R.id.eventTimeTV);
+        eventNameET = (EditText) findViewById(R.id.eventNameET);
+        eventDateET = (EditText) findViewById(R.id.dateET);
+        eventLatitudeET = (EditText) findViewById(R.id.latitudeET);
+        eventLongitudeET = (EditText) findViewById(R.id.longitudeET);
     }
 
-    public void saveEventAction(View view)
-    {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void saveEventAction(View view) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
         String eventName = eventNameET.getText().toString();
-        Match newEvent = new Match(eventName, CalendarUtils.selectedDate, time);
-        Match.eventsList.add(newEvent);
+        if(eventLatitudeET.getText().toString().length() != 0 && eventLongitudeET.getText().toString().length() != 0) {
+            double latitude = Double.parseDouble(eventLatitudeET.getText().toString());
+            double longitude = Double.parseDouble(eventLongitudeET.getText().toString());
+            Match newEvent = new Match(eventName, sdf.parse(eventDateET.getText().toString()), latitude, longitude);
+            Match.eventsList.add(newEvent);
+        }
         finish();
     }
 }
