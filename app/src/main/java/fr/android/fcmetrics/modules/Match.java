@@ -49,6 +49,17 @@ public class Match
 
     }
 
+    public static void delete(String uuid) {
+        for(Match event : eventsList)
+        {
+            if(event.getUuid().equals(uuid))
+            {
+                eventsList.remove(event);
+                return;
+            }
+        }
+    }
+
     public String getUuid() {
         return uuid;
     }

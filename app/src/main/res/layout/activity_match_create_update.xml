@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Create Match"
+        android:text="Create or Update Match"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textAlignment="center"

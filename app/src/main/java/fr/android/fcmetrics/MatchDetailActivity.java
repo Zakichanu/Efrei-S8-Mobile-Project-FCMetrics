@@ -54,11 +54,15 @@ public class MatchDetailActivity extends AppCompatActivity {
 
             // Get the match object from the database
             Match match = Match.getMatch(matchUuid);
-
-            // Geocode the address
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            String addressString = geocoder.getFromLocation(match.getLatitude(), match.getLongitude(), 1).get(0).getAddressLine(0);
-
+            String addressString = "";
+            try {
+                // Geocode the address
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                addressString = geocoder.getFromLocation(match.getLatitude(), match.getLongitude(), 1).get(0).getAddressLine(0);
+            }catch (Exception e){
+                e.printStackTrace();
+                addressString = "ERROR on coding the address";
+            }
             // Print the match info 48.944799542579744, 2.542579210438741
             eventNameET.setText(match.getName());
             latitudeET.setText(String.valueOf(match.getLatitude()));

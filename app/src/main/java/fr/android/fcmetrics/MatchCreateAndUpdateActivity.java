@@ -25,6 +25,11 @@ public class MatchCreateAndUpdateActivity extends AppCompatActivity
     private EditText eventScoreOpponentET;
     private Bundle bundle;
 
+    // Parsing date and time
+    SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+    SimpleDateFormat datewithoutTime = new SimpleDateFormat("dd MMMM yyyy");
+    SimpleDateFormat timewithoutDate = new SimpleDateFormat("HH:mm");
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,14 +58,25 @@ public class MatchCreateAndUpdateActivity extends AppCompatActivity
         eventLongitudeET = (EditText) findViewById(R.id.longitudeET);
         eventScoreUserET = (EditText) findViewById(R.id.scoreUserET);
         eventScoreOpponentET = (EditText) findViewById(R.id.scoreOppET);
+
+        // If we are in update mode, we fill the fields with the data of the match
+        if(bundle.getString("type").equals("update")){
+            Match eventToUpdate = Match.eventsList.get(bundle.getInt("match"));
+            // Filling fields
+            eventNameET.setText(eventToUpdate.getName());
+            eventDateET.setText(datewithoutTime.format(eventToUpdate.getDate()));
+            eventTimeET.setText(timewithoutDate.format(eventToUpdate.getDate()));
+            eventLatitudeET.setText(String.valueOf(eventToUpdate.getLatitude()));
+            eventLongitudeET.setText(String.valueOf(eventToUpdate.getLongitude()));
+            eventScoreUserET.setText(eventToUpdate.getScoreUser());
+            eventScoreOpponentET.setText(eventToUpdate.getScoreOpponent());
+        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void saveEventAction(View view) {
         try {
-            // Parsing date and time
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm");
-
             // Name of event
             String eventName = eventNameET.getText().toString();
 
@@ -73,6 +89,19 @@ public class MatchCreateAndUpdateActivity extends AppCompatActivity
                 if(bundle.getString("type").equals("create")) {
                     Match newEvent = new Match(eventName, sdf.parse(eventDateET.getText().toString() + " " + eventTimeET.getText().toString()), latitude, longitude, eventScoreUserET.getText().toString(), eventScoreOpponentET.getText().toString());
                     Match.eventsList.add(newEvent);
+                }else if(bundle.getString("type").equals("update")) {
+                    Match eventToUpdate = Match.eventsList.get(bundle.getInt("match"));
+
+                    // Putting new values
+                    eventToUpdate.setName(eventName);
+                    eventToUpdate.setDate(sdf.parse(eventDateET.getText().toString() + " " + eventTimeET.getText().toString()));
+                    eventToUpdate.setLatitude(latitude);
+                    eventToUpdate.setLongitude(longitude);
+                    eventToUpdate.setScoreUser(eventScoreUserET.getText().toString());
+                    eventToUpdate.setScoreOpponent(eventScoreOpponentET.getText().toString());
+
+                    // Updating event
+                    Match.eventsList.set(Match.eventsList.indexOf(eventToUpdate), eventToUpdate);
                 }
             }
             finish();
