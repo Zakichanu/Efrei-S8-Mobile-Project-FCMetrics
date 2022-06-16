@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MatchCreateAndUpdateActivity">
+    tools:context=".MatchDetailActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,13 +29,12 @@
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
-    <EditText
+    <TextView
         android:id="@+id/eventNameET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="text"
         android:textSize="20sp" />
 
     <TextView
@@ -48,13 +47,12 @@
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
-    <EditText
+    <TextView
         android:id="@+id/latitudeET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="text"
         android:textSize="20sp" />
 
     <TextView
@@ -67,13 +65,30 @@
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
-    <EditText
+    <TextView
         android:id="@+id/longitudeET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Address Line :"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
         android:textSize="20sp" />
 
     <TextView
@@ -86,13 +101,12 @@
         android:textSize="20sp"
         android:textAlignment="center"
         android:textColor="@color/black"/>
-    <EditText
+    <TextView
         android:id="@+id/dateET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="text"
         android:textSize="20sp" />
 
     <TextView
@@ -105,24 +119,23 @@
         android:textSize="20sp"
         android:textAlignment="center"
         android:textColor="@color/black"/>
-    <EditText
+    <TextView
         android:id="@+id/timeET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="text"
         android:textSize="20sp" />
 
     <Button
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="Back"
         android:textColor="@color/blue"
         android:background="@null"
         android:textStyle="bold"
-        android:onClick="saveEventAction"
+        android:onClick="backtoHome"
         android:layout_gravity="center"
         android:textSize="20sp"/>
 

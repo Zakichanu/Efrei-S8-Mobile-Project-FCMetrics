@@ -15,25 +15,45 @@ public class Match
 
         for(Match event : eventsList)
         {
-            if(event.getDate().equals(date))
+            if(event.getDate().getDate() == date.getDate() && event.getDate().getMonth() == date.getMonth() && event.getDate().getYear() == date.getYear())
                 events.add(event);
         }
 
         return events;
     }
 
+    public static Match getMatch(String uuid)
+    {
+        for(Match event : eventsList)
+        {
+            if(event.getUuid().equals(uuid))
+                return event;
+        }
 
+        return null;
+    }
+
+    private String uuid;
     private String name;
     private Date date;
     private Double latitude, longitude;
 
     public Match(String name, Date date, double latitude, double longitude)
     {
+        this.uuid = java.util.UUID.randomUUID().toString();
         this.name = name;
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
 
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName()

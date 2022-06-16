@@ -16,8 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.io.Serializable;
 import java.util.List;
 
+import fr.android.fcmetrics.MatchDetailActivity;
 import fr.android.fcmetrics.R;
 
 
@@ -39,20 +41,21 @@ public class MatchAdapter extends ArrayAdapter<Match>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.celulle_match, parent, false);
 
         TextView matchCellTV = convertView.findViewById(R.id.matchCellTV);
-        /*RelativeLayout matchCellRL = convertView.findViewById(R.id.matchCellRL);
+        RelativeLayout matchCellRL = convertView.findViewById(R.id.matchCellRL);
         matchCellRL.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getContext(), );
+                Intent intent = new Intent(getContext(), MatchDetailActivity.class);
                 // Passing data through intent
-                intent.putExtra("match", (Parcelable) event);
+                intent.putExtra("match", event.getUuid());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getContext().startActivity(intent);
             }
-        });*/
+        });
 
-        String eventTitle = event.getName() +" "+ event.getDate() + " " + event.getLatitude() + " " + event.getLongitude();
+        String eventTitle = event.getName() +" ⌚️ : "+ event.getDate().getHours() + "h" + event.getDate().getMinutes();
         Log.i("eventTitle", eventTitle);
         matchCellTV.setText(eventTitle);
         return convertView;

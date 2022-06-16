@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static fr.android.fcmetrics.modules.CalendarUtils.daysInWeekArray;
 import static fr.android.fcmetrics.modules.CalendarUtils.monthYearFromDate;
@@ -131,6 +130,6 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
 
     public void newEventAction(View view)
     {
-        startActivity(new Intent(this, MatchActivity.class));
+        startActivity(new Intent(this, MatchCreateAndUpdateActivity.class));
     }
 }
