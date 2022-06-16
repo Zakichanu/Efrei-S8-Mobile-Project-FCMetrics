@@ -8,15 +8,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-import fr.android.fcmetrics.modules.CalendarUtils;
 import fr.android.fcmetrics.modules.Match;
 
 public class MatchCreateAndUpdateActivity extends AppCompatActivity
@@ -26,13 +21,16 @@ public class MatchCreateAndUpdateActivity extends AppCompatActivity
     private EditText eventTimeET;
     private EditText eventLatitudeET;
     private EditText eventLongitudeET;
+    private EditText eventScoreUserET;
+    private EditText eventScoreOpponentET;
+    private Bundle bundle;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match);
+        setContentView(R.layout.activity_match_create_update);
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -40,6 +38,8 @@ public class MatchCreateAndUpdateActivity extends AppCompatActivity
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.black));
         }
+
+        bundle = getIntent().getExtras();
 
         initWidgets();
     }
@@ -51,18 +51,29 @@ public class MatchCreateAndUpdateActivity extends AppCompatActivity
         eventTimeET = (EditText) findViewById(R.id.timeET);
         eventLatitudeET = (EditText) findViewById(R.id.latitudeET);
         eventLongitudeET = (EditText) findViewById(R.id.longitudeET);
+        eventScoreUserET = (EditText) findViewById(R.id.scoreUserET);
+        eventScoreOpponentET = (EditText) findViewById(R.id.scoreOppET);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void saveEventAction(View view) {
         try {
+            // Parsing date and time
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+
+            // Name of event
             String eventName = eventNameET.getText().toString();
+
+            // If latitude and longitude are not empty
             if(eventLatitudeET.getText().toString().length() != 0 && eventLongitudeET.getText().toString().length() != 0) {
                 double latitude = Double.parseDouble(eventLatitudeET.getText().toString());
                 double longitude = Double.parseDouble(eventLongitudeET.getText().toString());
-                Match newEvent = new Match(eventName, sdf.parse(eventDateET.getText().toString() + " " + eventTimeET.getText().toString()), latitude, longitude);
-                Match.eventsList.add(newEvent);
+
+                // If creation of event
+                if(bundle.getString("type").equals("create")) {
+                    Match newEvent = new Match(eventName, sdf.parse(eventDateET.getText().toString() + " " + eventTimeET.getText().toString()), latitude, longitude, eventScoreUserET.getText().toString(), eventScoreOpponentET.getText().toString());
+                    Match.eventsList.add(newEvent);
+                }
             }
             finish();
         }catch (Exception e) {

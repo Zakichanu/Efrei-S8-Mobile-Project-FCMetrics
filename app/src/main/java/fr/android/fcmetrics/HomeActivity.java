@@ -130,6 +130,8 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
 
     public void newEventAction(View view)
     {
-        startActivity(new Intent(this, MatchCreateAndUpdateActivity.class));
+        Intent intent = new Intent(this, MatchCreateAndUpdateActivity.class);
+        intent.putExtra("type", "create");
+        startActivity(intent);
     }
 }

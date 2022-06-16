@@ -20,6 +20,8 @@ public class MatchDetailActivity extends AppCompatActivity {
     private TextView address;
     private TextView dateET;
     private TextView timeET;
+    private TextView scoreUserET;
+    private TextView scoreOppET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class MatchDetailActivity extends AppCompatActivity {
             address = findViewById(R.id.address);
             dateET = findViewById(R.id.dateET);
             timeET = findViewById(R.id.timeET);
+            scoreUserET = findViewById(R.id.scoreUserET);
+            scoreOppET = findViewById(R.id.scoreOppET);
 
             // Get the matchUuid from the intent
             Bundle bundle = getIntent().getExtras();
@@ -63,12 +67,11 @@ public class MatchDetailActivity extends AppCompatActivity {
             String dateToString = match.getDate().getDate() + "/" + (match.getDate().getMonth() + 1) + "/" + (match.getDate().getYear() + 1900);
             dateET.setText(dateToString);
             timeET.setText(match.getDate().getHours() + "h" + match.getDate().getMinutes());
+            scoreUserET.setText(match.getScoreUser());
+            scoreOppET.setText(match.getScoreOpponent());
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-
     }
 
 

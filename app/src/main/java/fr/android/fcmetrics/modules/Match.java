@@ -33,15 +33,16 @@ public class Match
         return null;
     }
 
-    private String uuid;
-    private String name;
+    private String uuid, name, scoreUser, scoreOpponent;
     private Date date;
     private Double latitude, longitude;
 
-    public Match(String name, Date date, double latitude, double longitude)
+    public Match(String name, Date date, double latitude, double longitude, String scoreUser, String scoreOpponent)
     {
         this.uuid = java.util.UUID.randomUUID().toString();
         this.name = name;
+        this.scoreUser= scoreUser;
+        this.scoreOpponent = scoreOpponent;
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -88,5 +89,27 @@ public class Match
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getScoreUser() {
+        if(scoreUser.equals("")){
+            return "0";
+        }
+        return scoreUser;
+    }
+
+    public void setScoreUser(String scoreUser) {
+        this.scoreUser = scoreUser;
+    }
+
+    public String getScoreOpponent() {
+        if(scoreOpponent.equals("")){
+            return "0";
+        }
+        return scoreOpponent;
+    }
+
+    public void setScoreOpponent(String scoreOpponent) {
+        this.scoreOpponent = scoreOpponent;
     }
 }

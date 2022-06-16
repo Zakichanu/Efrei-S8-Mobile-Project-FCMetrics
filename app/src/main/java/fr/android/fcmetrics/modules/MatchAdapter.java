@@ -55,7 +55,7 @@ public class MatchAdapter extends ArrayAdapter<Match>
             }
         });
 
-        String eventTitle = event.getName() +" ⌚️ : "+ event.getDate().getHours() + "h" + event.getDate().getMinutes();
+        String eventTitle = event.getName() +" ⌚️ : "+ event.getDate().getHours() + "h" + event.getDate().getMinutes() + " ⚽️ : " + event.getScoreUser() + " - " + event.getScoreOpponent();
         Log.i("eventTitle", eventTitle);
         matchCellTV.setText(eventTitle);
         return convertView;
