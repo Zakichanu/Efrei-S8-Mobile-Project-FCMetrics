@@ -68,7 +68,11 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         // Retrieve user Information
         Bundle bundle = getIntent().getExtras();
         String userJson = bundle.getString("userId");
-        getUserInformation(userJson);
+        try {
+            getUserInformation(userJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Récupération des champs de la toolbar
         CircleImageView pdp = findViewById(R.id.pdp);
@@ -145,7 +149,7 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         startActivity(intent);
     }
 
-    public void getUserInformation(String idUser) {
+    public void getUserInformation(String idUser) throws InterruptedException {
         Runnable runnable = () -> {
             try{
                 // Requesting the user to the db
@@ -168,6 +172,7 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         };
         Thread callApi = new Thread(runnable);
         callApi.start();
+        callApi.join();
 
     }
 }
