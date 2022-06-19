@@ -13,10 +13,11 @@
         <entry key="app/src/main/res/layout/activity_match.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_match_create_update.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/layout/activity_match_detail.xml" value="0.15520833333333334" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.35175323486328125" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/cellule_calendrier.xml" value="0.15416666666666667" />
         <entry key="app/src/main/res/layout/celulle_match.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>
   </component>

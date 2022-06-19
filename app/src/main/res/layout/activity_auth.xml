@@ -45,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Email"
-                android:includeFontPadding="true"
-                android:inputType="text"
+                android:outlineAmbientShadowColor="@color/white"
                 android:textColor="@color/white"
                 app:met_floatingLabel="normal"
+                app:met_textColor="@color/white"
                 app:met_textColorHint="#FFFFFF"
                 app:met_underlineColor="#3F51B5" />
 
@@ -60,12 +60,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Mot de passe"
-                android:includeFontPadding="true"
-                android:inputType="textPassword"
+                android:outlineAmbientShadowColor="@color/white"
                 android:textColor="@color/white"
                 app:met_floatingLabel="normal"
+                app:met_textColor="@color/white"
                 app:met_textColorHint="#FFFFFF"
-                app:met_underlineColor="#3F51B5" />
+                app:met_underlineColor="#3F51B5"/>
 
 
             <Button
@@ -75,6 +75,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/scndcustom_button"
                 android:text="Connexion"
+                android:onClick="connectionHandler"
                 android:textColor="@color/white" />
 
             <Button
