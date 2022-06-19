@@ -17,7 +17,7 @@ import okhttp3.Response;
 
 public class Controller {
 
-    public static String getUser(String email, String password){
+    public static String getUserByMailAndPassword(String email, String password){
         String jsonBodyReq = "{\"mail\":\"" + email + "\",\"password\":\"" + password + "\"}";
 
         OkHttpClient client = new OkHttpClient();
@@ -26,6 +26,22 @@ public class Controller {
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:3000/user")
                 .post(body)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static String getUserById(String id){
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:3000/user/" + id)
+                .get()
                 .build();
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();

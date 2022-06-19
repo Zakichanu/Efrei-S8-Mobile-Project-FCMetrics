@@ -1,6 +1,7 @@
 package fr.android.fcmetrics;
 
-import static fr.android.fcmetrics.modules.Controller.getUser;
+
+import static fr.android.fcmetrics.modules.Controller.getUserByMailAndPassword;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,7 +50,7 @@ public class AuthActivity extends AppCompatActivity {
             Runnable runnable = () -> {
                 try{
                     // Requesting the user to the db
-                    String getUser = getUser(email.getText().toString(), password.getText().toString());
+                    String getUser = getUserByMailAndPassword(email.getText().toString(), password.getText().toString());
 
                     // Verifying the information recieved from the api
                     if(!getUser.equals("Password is incorrect") && !getUser.equals("User doesn't exists")){
@@ -58,6 +59,10 @@ public class AuthActivity extends AppCompatActivity {
                         // Parsing the json
                         UserEntity user = gson.fromJson(getUser, UserEntity.class);
                         Log.i("user", user.getName());
+
+                        Intent intent = new Intent(AuthActivity.this, HomeActivity.class);
+                        intent.putExtra("userId", user.get_id());
+                        startActivity(intent);
                     }else{
                         Log.i("result", getUser);
                         Toast.makeText(AuthActivity.this, "E-mail ou mot de passe incorrect", Toast.LENGTH_LONG).show();

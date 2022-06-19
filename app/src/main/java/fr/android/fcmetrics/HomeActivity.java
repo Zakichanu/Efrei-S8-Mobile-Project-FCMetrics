@@ -9,32 +9,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static fr.android.fcmetrics.modules.CalendarUtils.daysInWeekArray;
 import static fr.android.fcmetrics.modules.CalendarUtils.monthYearFromDate;
+import static fr.android.fcmetrics.modules.Controller.getUserById;
+
+import com.google.gson.Gson;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fr.android.fcmetrics.modules.CalendarAdapter;
 import fr.android.fcmetrics.modules.CalendarUtils;
 import fr.android.fcmetrics.modules.Match;
 import fr.android.fcmetrics.modules.MatchAdapter;
+import fr.android.fcmetrics.modules.UserEntity;
 
 public class HomeActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
-
-    private CircleImageView pdp;
-    private TextView pseudonyme;
+    private UserEntity userConnected;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -44,27 +50,31 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.black));
-        }
-
-
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(this.getResources().getColor(R.color.black));
         CalendarUtils.selectedDate = LocalDate.now();
+
+        // Init of widgets
         initWidgets();
         setWeekView();
 
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
+        // Retrieve user Information
+        Bundle bundle = getIntent().getExtras();
+        String userJson = bundle.getString("userId");
+        getUserInformation(userJson);
 
         // Récupération des champs de la toolbar
-        pdp = findViewById(R.id.pdp);
-        pseudonyme = findViewById(R.id.pseudonyme);
+        CircleImageView pdp = findViewById(R.id.pdp);
+        TextView pseudonyme = findViewById(R.id.pseudonyme);
 
-        pseudonyme.setText("Welcome Back ZAK!");
+        pseudonyme.setText("Welcome Back " + userConnected.getName());
         pdp.setImageResource(R.drawable.ic_imageonline_co_transparentimage);
 
     }
@@ -133,5 +143,31 @@ public class HomeActivity extends AppCompatActivity implements CalendarAdapter.O
         Intent intent = new Intent(this, MatchCreateAndUpdateActivity.class);
         intent.putExtra("type", "create");
         startActivity(intent);
+    }
+
+    public void getUserInformation(String idUser) {
+        Runnable runnable = () -> {
+            try{
+                // Requesting the user to the db
+                String getUser = getUserById(idUser);
+
+                // Verifying the information recieved from the api
+                if(!getUser.equals("User doesn't exists")){
+                    Gson gson = new Gson();
+
+                    // Parsing the json
+                    userConnected = gson.fromJson(getUser, UserEntity.class);
+                    Log.i("user", userConnected.getName());
+                }else{
+                    Log.i("result", getUser);
+                    Toast.makeText(HomeActivity.this, "Id incorrect", Toast.LENGTH_LONG).show();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        };
+        Thread callApi = new Thread(runnable);
+        callApi.start();
+
     }
 }
