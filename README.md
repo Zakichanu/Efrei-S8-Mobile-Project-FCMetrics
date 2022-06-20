@@ -13,7 +13,7 @@ Project to validate my mobile development course
 
 ## Additional functions
 
-We made an [API](https://github.com/Zakichanu/Efrei-S8-Mobile-Project-FCMetrics-Model) for specifically for this project, where this one will just communicate with the [mongo atlas](https://www.mongodb.com/fr-fr/pricing) database. It is pretty basic because of the amount of time really short (5 days). For know, at the moment we got just requests to insert and get a user.
+We made an [API](https://github.com/Zakichanu/Efrei-S8-Mobile-Project-FCMetrics-Model) specifically for this project, where this one will just communicate with the [mongo atlas](https://www.mongodb.com/fr-fr/pricing) database. It is pretty basic because of the amount of time really short (5 days). For know, at the moment we got just requests to insert and get a user.
 
 
 
